@@ -1,0 +1,32 @@
+/*open sans font*/
+
+@font-face {
+    font-family: 'open-sans';
+    src: url('../fonts/open-sans/opensans-regular-webfont.eot');
+    src: url('../fonts/open-sans/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/open-sans/opensans-regular-webfont.woff2') format('woff2'),
+         url('../fonts/open-sans/opensans-regular-webfont.woff') format('woff'),
+         url('../fonts/open-sans/opensans-regular-webfont.ttf') format('truetype');
+    font-weight: 400;
+
+}
+@font-face {
+    font-family: 'open-sans';
+    src: url('../fonts/open-sans/opensans-bold-webfont.eot');
+    src: url('../fonts/open-sans/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/open-sans/opensans-bold-webfont.woff2') format('woff2'),
+         url('../fonts/open-sans/opensans-bold-webfont.woff') format('woff'),
+         url('../fonts/open-sans/opensans-bold-webfont.ttf') format('truetype');
+    font-weight: 700;
+
+}
+@font-face {
+    font-family: 'open-sans';
+    src: url('../fonts/open-sans/opensans-light-webfont.eot');
+    src: url('../fonts/open-sans/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/open-sans/opensans-light-webfont.woff2') format('woff2'),
+         url('../fonts/open-sans/opensans-light-webfont.woff') format('woff'),
+         url('../fonts/open-sans/opensans-light-webfont.ttf') format('truetype');
+    font-weight: 300;
+
+}

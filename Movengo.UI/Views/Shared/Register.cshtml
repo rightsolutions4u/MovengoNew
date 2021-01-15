@@ -1,0 +1,109 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<script>
+        addEventListener("load", populateCountry() );
+</script>
+<section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+    <div class="container">
+        <h3 class="tittle-w3layouts text-center my-lg-4 my-4">Register</h3>
+        <div class="inner_sec">
+            <!-- <p class="sub text-center mb-lg-5 mb-3">We love to discuss your idea</p> -->
+
+            <div class="contact_grid_right">
+                <form method="post" action="@Url.Action("CreateCustomer", "Home")">
+                    <div class="row contact_left_grid ">
+                        <div class="col-md-6 con-left">
+                            <div class="form-group">
+                                <label class="my-2">First Name</label>
+                                <input class="form-control" type="text" name="FirstName" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input class="form-control" type="text" name="LastName" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="my-2">Password</label>
+                                <input class="form-control" type="password" id="password" name="password" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="my-2">Confirm Password</label>
+                                <input class="form-control" type="password" name="password1" id="password1" placeholder="" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-6 con-right">
+                            <div class="form-group">
+                                <label class="my-2">Date of birth</label>
+                                <input class="form-control" type="text" name="dateofbirth" id="dateofbirth" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" type="email" name="Email" id="Email" placeholder="" required="">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row contact_left_grid">
+                        <div class="col-md-6 con-left">
+                            <div class="form-group">
+                                <label class="my-2">Street Address1</label>
+                                <input class="form-control" type="text" name="StreetAddress1" id="StreetAddress1" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address2</label>
+                                <input class="form-control" type="text" name="Street Address2" id="StreetAddress2" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="my-2">Country</label>
+                                <div class="select">
+                                    <select class="form-control" name="CountryId" id="CountryId">
+                                        <option value="x">Select Country</option>";
+                                    </select>
+                                    <script>
+                                            function populateCountry() {
+                                                $.ajax({
+                                                    url: 'https://localhost:44356/api/Home/GetCountries',
+                                                    type: 'GET',
+                                                    success: function (result) {
+                                                        var markup = '<option value="y">Please Select a Country</option>';
+                                                        for (var i = 0; i < result.length; i++) {
+                                                            markup += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                                                        }
+                                                     $("#CountryId").html(markup).show();
+                                                    },
+                                                    error:
+                                                        function (result) {
+
+                                                            alert("error : " + result.responseText);
+                                                        }
+                                                });
+                                     }
+</script>               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 con-right">
+                            <div class="form-group">
+                                <label class="my-2">City.</label>
+                                <input class="form-control" type="text" name="city" id="city" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="my-2">Phone No.</label>
+                                <input class="form-control" type="text" name="phoneno" id="phoneno" placeholder="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Zip Code</label>
+                                <input class="form-control" type="text" name="ZipCode" id="ZipCode" placeholder="" required="">
+                            </div>
+                            <input class="form-control" type="submit" value="Submit">
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
