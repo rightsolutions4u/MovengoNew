@@ -21,10 +21,16 @@ namespace Movengo.API.Controllers
         }
 
         // GET: api/Addresses
-        [HttpGet]
+        [HttpGet("GetAddresses")]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
         {
             return await _context.Addresses.ToListAsync();
+        }
+        // GET: api/Addresses
+        [HttpGet("GetCountries")]
+        public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
+        {
+            return await _context.Countries.ToListAsync();
         }
 
         // GET: api/Addresses/5

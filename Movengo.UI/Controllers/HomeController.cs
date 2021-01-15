@@ -21,10 +21,9 @@ namespace MovengoUI.Controllers
         {
             _logger = logger;
         }
-        // POST: AccountController/Create
+        // POST: HomeController/Create
         [HttpPost]
-
-        public async Task<ActionResult<Customer>> CreateCustomer([FromBody] dynamic MyCustomer)
+        public async Task<ActionResult<Customer>> CreateCustomer([FromForm] dynamic MyCustomer)
         {
             try
 
@@ -40,7 +39,7 @@ namespace MovengoUI.Controllers
                     Email = sMyCustomer.Email,
                     CreatedOnUtc = DateTime.UtcNow,
                     ZipPostalCode = sMyCustomer.ZipCode,
-                    CountryId=sMyCustomer.CountryId,
+                    //CountryId=sMyCustomer.CountryId,
                     PhoneNumber = sMyCustomer.phoneno
                 };
                 string output = JsonConvert.SerializeObject(address);
@@ -103,6 +102,8 @@ namespace MovengoUI.Controllers
                 return View();
             }
         }
+
+        
         //public async Task<ActionResult<Customer>> CheckCustomerLogin(IFormCollection collection)
         //{
         //    Customer cutomer = new Customer();

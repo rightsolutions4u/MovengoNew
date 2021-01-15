@@ -2,9 +2,7 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<script>
-        addEventListener("load", populateCountry() );
-</script>
+
 <section class="banner-bottom-wthreelayouts py-lg-5 py-3">
     <div class="container">
         <h3 class="tittle-w3layouts text-center my-lg-4 my-4">Register</h3>
@@ -17,7 +15,7 @@
                         <div class="col-md-6 con-left">
                             <div class="form-group">
                                 <label class="my-2">First Name</label>
-                                <input class="form-control" type="text" name="FirstName" placeholder="" required="">
+                                <input class="form-control" type="text" name="FirstName" placeholder="" required="" onchange="populateCountry()">
                             </div>
                             <div class="form-group">
                                 <label>Last Name</label>
@@ -44,7 +42,6 @@
 
                         </div>
                     </div>
-
                     <div class="row contact_left_grid">
                         <div class="col-md-6 con-left">
                             <div class="form-group">
@@ -62,20 +59,23 @@
                                         <option value="x">Select Country</option>";
                                     </select>
                                     <script>
-                                            function populateCountry() {
+                                        function populateCountry() {
+                                            alert("inside");
                                                 $.ajax({
-                                                    url: 'https://localhost:44356/api/Home/GetCountries',
+                                                    url: 'https://localhost:44307/api/Addresses/GetCountries',
                                                     type: 'GET',
                                                     success: function (result) {
                                                         var markup = '<option value="y">Please Select a Country</option>';
-                                                        for (var i = 0; i < result.length; i++) {
-                                                            markup += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
-                                                        }
+                                                        alert("in success");
+                                                        //for (var i = 0; i < result.length; i++) {
+                                                        //    markup += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                                                        //    //markup += '<option value="' + result.id + '">' + result.name + '</option>';
+                                                        //}
                                                      $("#CountryId").html(markup).show();
                                                     },
                                                     error:
                                                         function (result) {
-
+                                                            
                                                             alert("error : " + result.responseText);
                                                         }
                                                 });
