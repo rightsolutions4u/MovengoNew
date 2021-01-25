@@ -15,5 +15,7 @@ namespace Movengo.Common.Models
         public string SwiftCode { get; set; }
         public string AccountNumber { get; set; }
         public string AccountType { get; set; }
+
+        public virtual Vendor Vendor { get; set; }
     }
 }

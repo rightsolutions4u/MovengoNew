@@ -12,5 +12,7 @@ namespace Movengo.Common.Models
         public int CustomerAttributeId { get; set; }
         public bool IsPreSelected { get; set; }
         public int DisplayOrder { get; set; }
+
+        public virtual CustomerAttribute CustomerAttribute { get; set; }
     }
 }

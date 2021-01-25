@@ -12,5 +12,7 @@ namespace Movengo.Common.Models
         public int OrderItemId { get; set; }
         public int Quantity { get; set; }
         public int WarehouseId { get; set; }
+
+        public virtual Shipment Shipment { get; set; }
     }
 }

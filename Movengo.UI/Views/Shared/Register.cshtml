@@ -23,12 +23,32 @@
                             </div>
                             <div class="form-group">
                                 <label class="my-2">Password</label>
-                                <input class="form-control" type="password" id="password" name="password" placeholder="" required="">
+                                <input class="form-control" type="password" id="password" name="password" placeholder="" required="" onchange="checkPassword()">
                             </div>
                             <div class="form-group">
                                 <label class="my-2">Confirm Password</label>
-                                <input class="form-control" type="password" name="password1" id="password1" placeholder="" required="">
+                                <input class="form-control" type="password" name="password1" id="password1" placeholder="" required="" onchange="checkPassword()">
                             </div>
+                            <script>
+                                function checkPassword()
+                                {
+                                   
+                                    var password1 = $("#password").val();
+                                    var password2 = $("#password1").val();
+                                   
+                                   
+                                    if (password1 != '' && password2 != '') {
+                                          
+                                        if (password1 != password2) {
+                                            alert("\nPassword did not match: Please try again...")
+                                            password1 = '';
+                                            password2 = '';
+                                            return false;
+                                        }
+
+                                    }
+                                }
+                            </script>
                         </div>
                         <div class="col-md-6 con-right">
                             <div class="form-group">
@@ -60,17 +80,16 @@
                                     </select>
                                     <script>
                                         function populateCountry() {
-                                            alert("inside");
-                                                $.ajax({
+                                                 $.ajax({
                                                     url: 'https://localhost:44307/api/Addresses/GetCountries',
                                                     type: 'GET',
                                                     success: function (result) {
                                                         var markup = '<option value="y">Please Select a Country</option>';
-                                                        alert("in success");
-                                                        //for (var i = 0; i < result.length; i++) {
-                                                        //    markup += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
-                                                        //    //markup += '<option value="' + result.id + '">' + result.name + '</option>';
-                                                        //}
+                                                      
+                                                        for (var i = 0; i < result.length; i++) {
+                                                            markup += '<option value=' + result[i].id + '>' + result[i].name + '</option>';
+                                                            
+                                                        }
                                                      $("#CountryId").html(markup).show();
                                                     },
                                                     error:

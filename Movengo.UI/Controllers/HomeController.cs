@@ -21,30 +21,67 @@ namespace MovengoUI.Controllers
         {
             _logger = logger;
         }
+        //POST: HomeController/Create
+        [HttpPost("CreateShipmentOnline")]
+        public async Task<ActionResult<Shipment>> CreateShipmentOnline(IFormCollection myshipment)
+        {
+            Address address = new Address
+            {
+                Address1 = myshipment["StreetAddress1"],
+                Address2 = myshipment["StreetAddress2"],
+                City = myshipment["City"],
+                CreatedOnUtc = DateTime.UtcNow,
+                ZipPostalCode = myshipment["ZipCode"],
+                CountryId = int.Parse(myshipment["CountryId"]),
+                
+            };
+            string output = JsonConvert.SerializeObject(address);
+            var data = new StringContent(output, Encoding.UTF8, "application/json");
+            var url = "https://localhost:44307/api/Addresses/PostAddress";
+            var client = new HttpClient();
+            var response = await client.PostAsync(url, data);
+            var Address = response.Content.ReadAsStringAsync().Result;
+            var DestinationAddress = JsonConvert.DeserializeObject<Address>(Address);
+            var DestinationAddressId = DestinationAddress.Id;
+
+            Shipment shipment = new Shipment
+            {
+                Link = myshipment["Link"],
+                DestinationAddress_Id = DestinationAddressId
+            };
+            output = JsonConvert.SerializeObject(shipment);
+            data = new StringContent(output, Encoding.UTF8, "application/json");
+            url = "https://localhost:44307/api/Shipments/PostShipment";
+            client = new HttpClient();
+            response = await client.PostAsync(url, data);
+            var Shipment = response.Content.ReadAsStringAsync().Result;
+            var a = JsonConvert.DeserializeObject<Shipment>(Shipment);
+            return RedirectToAction(nameof(Index));
+        }
         // POST: HomeController/Create
-        [HttpPost]
-        public async Task<ActionResult<Customer>> CreateCustomer([FromForm] dynamic MyCustomer)
+        [HttpPost("CreateCustomer")]
+        public async Task<ActionResult<Customer>> CreateCustomer(IFormCollection MyCustomer)
         {
             try
 
             {
-                var sMyCustomer = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(MyCustomer.ToString());
+                
                 Address address = new Address
                 {
-                    FirstName = sMyCustomer.FirstName,
-                    LastName = sMyCustomer.LastName,
-                    Address1 = sMyCustomer.StreetAddress1,
-                    Address2 = sMyCustomer.StreetAddress2,
-                    City = sMyCustomer.City,
-                    Email = sMyCustomer.Email,
+                    FirstName = MyCustomer["FirstName"],
+                    LastName = MyCustomer["LastName"],
+                    Address1 = MyCustomer["StreetAddress1"],
+                    Address2 = MyCustomer["StreetAddress2"],
+                    City = MyCustomer["City"],
+                    Email = MyCustomer["Email"],
                     CreatedOnUtc = DateTime.UtcNow,
-                    ZipPostalCode = sMyCustomer.ZipCode,
-                    //CountryId=sMyCustomer.CountryId,
-                    PhoneNumber = sMyCustomer.phoneno
+                    ZipPostalCode = MyCustomer["ZipCode"],
+                    CountryId = int.Parse(MyCustomer["CountryId"]),
+                    PhoneNumber = MyCustomer["phoneno"]
                 };
                 string output = JsonConvert.SerializeObject(address);
                 var data = new StringContent(output, Encoding.UTF8, "application/json");
-                var url = "https://localhost:44356/api/Addresses";
+                var url = "https://localhost:44307/api/Addresses/PostAddress";
                 var client = new HttpClient();
                 var response = await client.PostAsync(url, data);
                 var Address = response.Content.ReadAsStringAsync().Result;
@@ -53,8 +90,8 @@ namespace MovengoUI.Controllers
 
                 Customer customer = new Customer
                 {
-                    Username = sMyCustomer.Email,
-                    Email = sMyCustomer.Email,
+                    Username = MyCustomer["Email"],
+                    Email = MyCustomer["Email"],
                     EmailToRevalidate = "",
                     SystemName = "",
                     BillingAddressId = BillingAddress1.Id,
@@ -72,11 +109,11 @@ namespace MovengoUI.Controllers
                     LastIpAddress = "",
                     CreatedOnUtc = DateTime.UtcNow,
                     RegisteredInStoreId = 1,
-                    Password = sMyCustomer.Password
+                    Password = MyCustomer["Password"]
                 };
                 output = JsonConvert.SerializeObject(customer);
                 data = new StringContent(output, Encoding.UTF8, "application/json");
-                url = "https://localhost:44356/api/Customers";
+                url = "https://localhost:44307/api/Customers";
                 client = new HttpClient();
                 response = await client.PostAsync(url, data);
                 var Customer = response.Content.ReadAsStringAsync().Result;
@@ -94,14 +131,14 @@ namespace MovengoUI.Controllers
                     /* cookie code ends here*/
                 }
 
-                return View(a);
+                return View("Shipment",a);
                 //return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
-        }
+        }           
 
         
         //public async Task<ActionResult<Customer>> CheckCustomerLogin(IFormCollection collection)
@@ -226,6 +263,11 @@ namespace MovengoUI.Controllers
         public IActionResult Register()
         {
             return View("~/Views/shared/Register.cshtml");
+        }
+        //remove this one
+        public IActionResult Shipment()
+        {
+            return View("~/Views/shared/Shipment.cshtml");
         }
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()

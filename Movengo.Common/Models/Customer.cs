@@ -7,6 +7,13 @@ namespace Movengo.Common.Models
 {
     public partial class Customer
     {
+        public Customer()
+        {
+            //CustomerAddresses = new HashSet<CustomerAddress>();
+            //CustomerCustomerRoleMappings = new HashSet<CustomerCustomerRoleMapping>();
+            //Orders = new HashSet<Order>();
+        }
+
         public int Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
@@ -31,7 +38,13 @@ namespace Movengo.Common.Models
         public DateTime? LastLoginDateUtc { get; set; }
         public DateTime LastActivityDateUtc { get; set; }
         public int RegisteredInStoreId { get; set; }
-        public string Apitoken { get; set; }
         public string Password { get; set; }
+        public string Apitoken { get; set; }
+
+        public virtual Address BillingAddress { get; set; }
+        public virtual Address ShippingAddress { get; set; }
+        //public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
+        //public virtual ICollection<CustomerCustomerRoleMapping> CustomerCustomerRoleMappings { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

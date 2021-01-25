@@ -82,3 +82,4 @@ C:\Users\smali\Movengo_new\Movengo.UI\obj\Debug\netcoreapp3.1\Movengo.UI.csproj.
 C:\Users\smali\Movengo_new\Movengo.UI\obj\Debug\netcoreapp3.1\Movengo.UI.dll
 C:\Users\smali\Movengo_new\Movengo.UI\obj\Debug\netcoreapp3.1\Movengo.UI.pdb
 C:\Users\smali\Movengo_new\Movengo.UI\obj\Debug\netcoreapp3.1\Movengo.UI.genruntimeconfig.cache
+C:\Users\smali\Movengo_New\Movengo.UI\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Shipment.cshtml.g.cs

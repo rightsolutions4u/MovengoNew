@@ -1,7 +1,6 @@
 C:\Users\smali\Movengo_new\Movengo.Common\bin\Debug\netcoreapp3.1\Movengo.Common.deps.json
 C:\Users\smali\Movengo_new\Movengo.Common\bin\Debug\netcoreapp3.1\Movengo.Common.dll
 C:\Users\smali\Movengo_new\Movengo.Common\bin\Debug\netcoreapp3.1\Movengo.Common.pdb
-C:\Users\smali\Movengo_new\Movengo.Common\obj\Debug\netcoreapp3.1\Movengo.Common.csprojAssemblyReference.cache
 C:\Users\smali\Movengo_new\Movengo.Common\obj\Debug\netcoreapp3.1\Movengo.Common.AssemblyInfoInputs.cache
 C:\Users\smali\Movengo_new\Movengo.Common\obj\Debug\netcoreapp3.1\Movengo.Common.AssemblyInfo.cs
 C:\Users\smali\Movengo_new\Movengo.Common\obj\Debug\netcoreapp3.1\Movengo.Common.csproj.CoreCompileInputs.cache
@@ -10,3 +9,4 @@ C:\Users\smali\Movengo_new\Movengo.Common\obj\Debug\netcoreapp3.1\Movengo.Common
 C:\Users\smali\Movengo_new\Movengo.Common\bin\Debug\netcoreapp3.1\Movengo.Common.runtimeconfig.json
 C:\Users\smali\Movengo_new\Movengo.Common\bin\Debug\netcoreapp3.1\Movengo.Common.runtimeconfig.dev.json
 C:\Users\smali\Movengo_new\Movengo.Common\obj\Debug\netcoreapp3.1\Movengo.Common.genruntimeconfig.cache
+C:\Users\smali\Movengo_New\Movengo.Common\obj\Debug\netcoreapp3.1\Movengo.Common.csprojAssemblyReference.cache

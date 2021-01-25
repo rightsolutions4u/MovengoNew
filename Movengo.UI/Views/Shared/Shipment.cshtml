@@ -1,0 +1,245 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<style>
+    div.solid {
+        border-style: solid;
+        color: cornflowerblue;
+    }
+    h1 {
+        text-align: center;
+    }
+</style>
+
+<section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+    <div class="container">
+        <h3 class="tittle-w3layouts text-center my-lg-4 my-4">Shipment</h3> <br>
+        <div class="inner_sec">
+            <div class="contact_grid_right">
+
+                <!-------Shipment Type Starts----->
+                <div class="row contact_left_grid ">
+                    <div class="col-md-6 con-left">
+                        <label class="my-2">Type of Shipment</label>
+                        <div class="form-group">
+                            <input type="radio" id="Online" name="TypeOfShipment" value="Online" onchange="populateType()">
+                            <label for="Online">Online Purchase</label>
+                            <input type="radio" id="Cargo" name="TypeOfShipment" value="Cargo" onchange="populateType()">
+                            <label for="Cargo">Cargo Shipment</label>
+                        </div>
+                        <Script>
+                            function populateType() {
+                               
+                                var type = document.getElementsByName('TypeOfShipment');
+                                 for (i = 0; i < type.length; i++) {
+                                    if (type[i].checked) {
+                                        var x = type[i].value;
+                                        alert("x: " + x);
+                                    }
+                                        break;
+                                    }
+                                if (x == 'Online') {
+                                   var a = document.getElementById('Online');
+                                    alert("x: " + a.style.display);
+                                a.style.display = "block";
+                            }
+                                else if (x == 'NonCommercial') {
+                                    var a = document.getElementById('NonCommercial');
+                                    a.style.display = "block";
+                                }
+                            }
+                        </Script>
+                    </div>
+                    <div class="col-md-6 con-right">
+                        <label class="my-2">Type of Cargo</label>
+                        <div class="form-group">
+                            <input type="radio" id="Commercial" name="CargoShipmentType" value="Commercial">
+                            <label for="Online">Commercial</label>
+                            <input type="radio" id="Non-Commercial" name="CargoShipmentType" value="Non-Commercial">
+                            <label for="Cargo">Non-Commercial</label>
+                        </div>
+                    </div>
+                </div>
+                <!-------Shipment Type Ends----->
+                <!-------Online div Starts----->
+                <form method="post" action="@Url.Action("CreateShipmentOnline", "Home")">
+                    <div class="col-md-10 border border-info">
+                        <div class="border border-danger" style="width:99%;align-self:center;align-content:center;">
+                            asdsadsad
+                            <div id="Online"  style="width:90%;align-self:center;align-content:center;" >
+                                <div class="row contact_left_grid ">
+                                    <div class="col-md-6 con-left" >
+                                        <div class="form-group">
+                                            <label class="my-2">Link</label>
+                                            <input class="form-control" type="text" name="Link" placeholder="" required="" onchange="populateCountry()">
+                                        </div>
+                                        <div class="col-md-6 con-left">
+                                            <div class="form-group">
+                                                <label class="my-2">Street Address1</label>
+                                                <input class="form-control" type="text" name="StreetAddress1" id="StreetAddress1" placeholder="" required="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="my-2">Street Address2</label>
+                                                <input class="form-control" type="text" name="Street Address2" id="StreetAddress2" placeholder="" required="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="my-2">Country</label>
+                                                <div class="select">
+                                                    <select class="form-control" name="CountryId" id="CountryId">
+                                                        <option value="x">Select Country</option>";
+                                                    </select>
+                                                    <script>
+                                                        function populateCountry() {
+                                                            $.ajax({
+                                                                url: 'https://localhost:44307/api/Addresses/GetCountries',
+                                                                type: 'GET',
+                                                                success: function (result) {
+                                                                    var markup = '<option value="y">Please Select a Country</option>';
+
+                                                                    for (var i = 0; i < result.length; i++) {
+                                                                        markup += '<option value=' + result[i].id + '>' + result[i].name + '</option>';
+
+                                                                    }
+                                                                    $("#CountryId").html(markup).show();
+                                                                },
+                                                                error:
+                                                                    function (result) {
+
+                                                                        alert("error : " + result.responseText);
+                                                                    }
+                                                            });
+                                                        }
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 con-right">
+                                        <br>
+                                        <br />
+                                        <br />
+                                        <div class="form-group">
+                                            <label class="my-2">City.</label>
+                                            <input class="form-control" type="text" name="city" id="city" placeholder="" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Zip Code</label>
+                                            <input class="form-control" type="text" name="ZipCode" id="ZipCode" placeholder="" required="">
+                                        </div>
+                                        <input class="form-control" type="submit" value="Submit">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    <!-------Link div Ends----->
+                    <!-------Cargo Non-Commercial div Starts----->
+                ttttttt
+                    <div class="solid" id="NonCommercial" style="display:none">
+                        <div class="row contact_left_grid ">
+                            <div class="col-md-6 con-left">
+                                <div class="form-group">
+                                    <label class="my-2">Link</label>
+                                    <input class="form-control" type="text" name="Link" placeholder="" required="">
+                                </div>
+                                <div class="col-md-6 con-left">
+                                    <div class="form-group">
+                                        <label class="my-2">Street Address1</label>
+                                        <input class="form-control" type="text" name="StreetAddress1" id="StreetAddress1" placeholder="" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="my-2">Street Address2</label>
+                                        <input class="form-control" type="text" name="Street Address2" id="StreetAddress2" placeholder="" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="my-2">Country</label>
+                                        <div class="select">
+                                            <select class="form-control" name="CountryId1" id="CountryId1">
+                                                <option value="x">Select Country</option>";
+                                            </select>
+                                            <script>
+                                                function populateCountry() {
+                                                    $.ajax({
+                                                        url: 'https://localhost:44307/api/Addresses/GetCountries',
+                                                        type: 'GET',
+                                                        success: function (result) {
+                                                            var markup = '<option value="y">Please Select a Country</option>';
+
+                                                            for (var i = 0; i < result.length; i++) {
+                                                                markup += '<option value=' + result[i].id + '>' + result[i].name + '</option>';
+
+                                                            }
+                                                            $("#CountryId").html(markup).show();
+                                                        },
+                                                        error:
+                                                            function (result) {
+
+                                                                alert("error : " + result.responseText);
+                                                            }
+                                                    });
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 con-right">
+                                <br>
+                                <br />
+                                <br />
+                                <div class="form-group">
+                                    <label class="my-2">City.</label>
+                                    <input class="form-control" type="text" name="city" id="city" placeholder="" required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Zip Code</label>
+                                    <input class="form-control" type="text" name="ZipCode" id="ZipCode" placeholder="" required="">
+                                </div>
+                                <input class="form-control" type="submit" value="Submit">
+                            </div>
+                        </div>
+                    </div>
+                    <!-------Cargo Cargo Non-Commercial div Ends----->
+
+
+                
+            </div>
+        </div>
+    </div>
+</section>
+@*<div class="select">
+        <select class="form-control" name="CargoShipmentType" id="CargoShipmentType">
+            <option value="x">Select Cargo Type</option>";
+        </select>
+        <script>
+            function CargoShipmentType() {
+                $.ajax({
+                    url: 'https://localhost:44307/api/Shipment/GetShipmentType',
+                    type: 'GET',
+                    success: function (result) {
+                        var ShipmentType = '<option value="y">Please Select Shipment Type</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            ShipmentType += '<option value=' + result[i].typeid + '>' + result[i].typedesc + '</option>';
+                        }
+                        $("#TypeOfShipment").html(ShipmentType).show();
+                        var CargoType = '<option value="y">Please Select Cargo Types</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            CargoType += '<option value=' + result[i].cargoId + '>' + result[i].cargoDesc + '</option>';
+                        }
+                        $("#CargoShipmentType").html(CargoType).show();
+                        var DimensionsUnit = '<option value="y">Please Select Cargo Types</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            DimensionsUnit += '<option value=' + result[i].dimensionsId + '>' + result[i].dimensionsDesc + '</option>';
+                        }
+                        $("#DimensionsUnit").html(DimensionsUnit).show();
+                    },
+                    error:
+                        function (result) {
+
+                            alert("error : " + result.responseText);
+                        }
+                });
+            }
+        </script>
+    </div>*@

@@ -7,6 +7,13 @@ namespace Movengo.Common.Models
 {
     public partial class Order
     {
+        public Order()
+        {
+            OrderItems = new HashSet<OrderItem>();
+            OrderNotes = new HashSet<OrderNote>();
+            Shipments = new HashSet<Shipment>();
+        }
+
         public int Id { get; set; }
         public string CustomOrderNumber { get; set; }
         public int BillingAddressId { get; set; }
@@ -64,5 +71,13 @@ namespace Movengo.Common.Models
         public bool Deleted { get; set; }
         public DateTime CreatedOnUtc { get; set; }
         public int? RedeemedRewardPointsEntryId { get; set; }
+
+        public virtual Address BillingAddress { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Address PickupAddress { get; set; }
+        public virtual Address ShippingAddress { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<OrderNote> OrderNotes { get; set; }
+        public virtual ICollection<Shipment> Shipments { get; set; }
     }
 }

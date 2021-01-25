@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movengo.Common.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace Movengo.API.Controllers
 {
+    [EnableCors("CorsApi")]
     [Route("api/[controller]")]
     [ApiController]
     public class AddressesController : ControllerBase
@@ -82,7 +82,7 @@ namespace Movengo.API.Controllers
         // POST: api/Addresses
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        [HttpPost("PostAddress")]
         public async Task<ActionResult<Address>> PostAddress(Address address)
         {
             _context.Addresses.Add(address);

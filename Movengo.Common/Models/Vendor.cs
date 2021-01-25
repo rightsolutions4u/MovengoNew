@@ -7,6 +7,12 @@ namespace Movengo.Common.Models
 {
     public partial class Vendor
     {
+        public Vendor()
+        {
+            VendorBankDetails = new HashSet<VendorBankDetail>();
+            VendorNotes = new HashSet<VendorNote>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -24,5 +30,8 @@ namespace Movengo.Common.Models
         public int PageSize { get; set; }
         public bool AllowCustomersToSelectPageSize { get; set; }
         public string Password { get; set; }
+
+        public virtual ICollection<VendorBankDetail> VendorBankDetails { get; set; }
+        public virtual ICollection<VendorNote> VendorNotes { get; set; }
     }
 }

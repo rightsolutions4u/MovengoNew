@@ -7,6 +7,16 @@ namespace Movengo.Common.Models
 {
     public partial class Address
     {
+        public Address()
+        {
+            //CustomerAddresses = new HashSet<CustomerAddress>();
+            //CustomerBillingAddresses = new HashSet<Customer>();
+            //CustomerShippingAddresses = new HashSet<Customer>();
+            //OrderBillingAddresses = new HashSet<Order>();
+            //OrderPickupAddresses = new HashSet<Order>();
+            //OrderShippingAddresses = new HashSet<Order>();
+        }
+
         public int Id { get; set; }
         public int? CountryId { get; set; }
         public int? StateProvinceId { get; set; }
@@ -23,5 +33,14 @@ namespace Movengo.Common.Models
         public string FaxNumber { get; set; }
         public string CustomAttributes { get; set; }
         public DateTime CreatedOnUtc { get; set; }
+
+        public virtual Country Country { get; set; }
+        public virtual StateProvince StateProvince { get; set; }
+        //public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
+        //public virtual ICollection<Customer> CustomerBillingAddresses { get; set; }
+        //public virtual ICollection<Customer> CustomerShippingAddresses { get; set; }
+        //public virtual ICollection<Order> OrderBillingAddresses { get; set; }
+        //public virtual ICollection<Order> OrderPickupAddresses { get; set; }
+        //public virtual ICollection<Order> OrderShippingAddresses { get; set; }
     }
 }

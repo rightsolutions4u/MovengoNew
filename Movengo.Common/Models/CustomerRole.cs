@@ -7,6 +7,12 @@ namespace Movengo.Common.Models
 {
     public partial class CustomerRole
     {
+        public CustomerRole()
+        {
+            CustomerCustomerRoleMappings = new HashSet<CustomerCustomerRoleMapping>();
+            TierPrices = new HashSet<TierPrice>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string SystemName { get; set; }
@@ -18,5 +24,8 @@ namespace Movengo.Common.Models
         public bool OverrideTaxDisplayType { get; set; }
         public int DefaultTaxDisplayTypeId { get; set; }
         public int PurchasedWithProductId { get; set; }
+
+        public virtual ICollection<CustomerCustomerRoleMapping> CustomerCustomerRoleMappings { get; set; }
+        public virtual ICollection<TierPrice> TierPrices { get; set; }
     }
 }

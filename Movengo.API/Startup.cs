@@ -26,7 +26,7 @@ namespace Movengo.API
             //for cors
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsApi", builder => builder.WithOrigins("https://localhost:44328")
+                options.AddPolicy("CorsApi", builder => builder.WithOrigins("https://localhost:44351")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 );

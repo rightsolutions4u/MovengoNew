@@ -13,5 +13,7 @@ namespace Movengo.Common.Models
         public int DownloadId { get; set; }
         public bool DisplayToCustomer { get; set; }
         public DateTime CreatedOnUtc { get; set; }
+
+        public virtual Order Order { get; set; }
     }
 }

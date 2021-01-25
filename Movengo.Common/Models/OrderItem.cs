@@ -27,11 +27,8 @@ namespace Movengo.Common.Models
         public decimal? ItemWeight { get; set; }
         public DateTime? RentalStartDateUtc { get; set; }
         public DateTime? RentalEndDateUtc { get; set; }
-        public bool IsAccepted { get; set; }
-        public DateTime? ShipmentDate { get; set; }
-        public string AirWaybilNo { get; set; }
-        public string InvoiceUrl { get; set; }
-        public string RejectedReason { get; set; }
-        public int? Eta { get; set; }
+
+        public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
