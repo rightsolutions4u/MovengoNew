@@ -54,8 +54,8 @@ namespace MovengoUI.Controllers
             url = "https://localhost:44307/api/Shipments/PostShipment";
             client = new HttpClient();
             response = await client.PostAsync(url, data);
-            var Shipment = response.Content.ReadAsStringAsync().Result;
-            var a = JsonConvert.DeserializeObject<Shipment>(Shipment);
+            var Shipments = response.Content.ReadAsStringAsync().Result;
+            var a = JsonConvert.DeserializeObject<Shipment[]>(Shipments);
             return RedirectToAction(nameof(Index));
         }
         // POST: HomeController/Create

@@ -6,17 +6,22 @@
         border-style: solid;
         color: cornflowerblue;
     }
+
     h1 {
         text-align: center;
     }
 </style>
+funcion showme(divId)
+{
+     var a = document.getElementById('divId');
+     a.style.display = "block";
+}
 
 <section class="banner-bottom-wthreelayouts py-lg-5 py-3">
     <div class="container">
         <h3 class="tittle-w3layouts text-center my-lg-4 my-4">Shipment</h3> <br>
         <div class="inner_sec">
             <div class="contact_grid_right">
-
                 <!-------Shipment Type Starts----->
                 <div class="row contact_left_grid ">
                     <div class="col-md-6 con-left">
@@ -29,34 +34,48 @@
                         </div>
                         <Script>
                             function populateType() {
-                               
                                 var type = document.getElementsByName('TypeOfShipment');
-                                 for (i = 0; i < type.length; i++) {
+                                for (i = 0; i < type.length; i++) {
                                     if (type[i].checked) {
                                         var x = type[i].value;
                                         alert("x: " + x);
                                     }
-                                        break;
-                                    }
+                                    break;
+                                }
                                 if (x == 'Online') {
-                                   var a = document.getElementById('Online');
-                                    alert("x: " + a.style.display);
-                                a.style.display = "block";
-                            }
-                                else if (x == 'NonCommercial') {
-                                    var a = document.getElementById('NonCommercial');
-                                    a.style.display = "block";
+                                    showme('Online');
+                                }
+                                else {
+                                    showme('CargoType');
                                 }
                             }
                         </Script>
                     </div>
-                    <div class="col-md-6 con-right">
+                    <div style="display:none" id="CargoType" class="col-md-6 con-right">
                         <label class="my-2">Type of Cargo</label>
                         <div class="form-group">
                             <input type="radio" id="Commercial" name="CargoShipmentType" value="Commercial">
                             <label for="Online">Commercial</label>
-                            <input type="radio" id="Non-Commercial" name="CargoShipmentType" value="Non-Commercial">
+                            <input type="radio" id="NonCommercial" name="CargoShipmentType" value="NonCommercial" onchange="populateCargoType()">
                             <label for="Cargo">Non-Commercial</label>
+                            <script>
+                                function populateCargoType() {
+                                    var type = document.getElementsByName('CargoShipmentType');
+                                for (i = 0; i < type.length; i++) {
+                                    if (type[i].checked) {
+                                        var x = type[i].value;
+                                        alert("x: " + x);
+                                    }
+                                    break;
+                                }
+                                    if (x == 'Commercial') {
+                                        showme('Commercial');
+                                }
+                                else {
+                                        showme('NonCommercial');
+                                }
+                            }
+                        </Script>
                         </div>
                     </div>
                 </div>
@@ -65,10 +84,9 @@
                 <form method="post" action="@Url.Action("CreateShipmentOnline", "Home")">
                     <div class="col-md-10 border border-info">
                         <div class="border border-danger" style="width:99%;align-self:center;align-content:center;">
-                            asdsadsad
-                            <div id="Online"  style="width:90%;align-self:center;align-content:center;" >
+                            <div id="Online" style="width:90%;align-self:center;align-content:center;">
                                 <div class="row contact_left_grid ">
-                                    <div class="col-md-6 con-left" >
+                                    <div class="col-md-6 con-left">
                                         <div class="form-group">
                                             <label class="my-2">Link</label>
                                             <input class="form-control" type="text" name="Link" placeholder="" required="" onchange="populateCountry()">
@@ -133,16 +151,12 @@
                         </div>
                     </div>
                 </form>
-                    <!-------Link div Ends----->
-                    <!-------Cargo Non-Commercial div Starts----->
-                ttttttt
+                <!-------Online div Ends----->
+                <!-------Cargo Non-Commercial div Starts----->
+                <form method="post" action="@Url.Action("CreateShipmentOnline", "Home")">
                     <div class="solid" id="NonCommercial" style="display:none">
                         <div class="row contact_left_grid ">
                             <div class="col-md-6 con-left">
-                                <div class="form-group">
-                                    <label class="my-2">Link</label>
-                                    <input class="form-control" type="text" name="Link" placeholder="" required="">
-                                </div>
                                 <div class="col-md-6 con-left">
                                     <div class="form-group">
                                         <label class="my-2">Street Address1</label>
@@ -199,12 +213,13 @@
                                 <input class="form-control" type="submit" value="Submit">
                             </div>
                         </div>
+                        <div class="solid" id="item">
+
+                        </div>
+                        <!-------Cargo Cargo Non-Commercial div Ends----->
                     </div>
-                    <!-------Cargo Cargo Non-Commercial div Ends----->
-
-
-                
-            </div>
+                </form>
+</div>
         </div>
     </div>
 </section>

@@ -1,0 +1,119 @@
+USE [Movengo]
+GO
+
+drop table shipmentitem;
+drop table shipment;
+
+USE [Movengo]
+GO
+
+/****** Object:  Table [dbo].[Shipment]    Script Date: 1/25/2021 8:56:37 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Shipment](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TypeOfShipment] [nvarchar](50) NULL,
+	[CargoShipmentType] [nvarchar](50) NULL,
+	[CargoMode] [nvarchar](25) NULL,
+	[CargoType] [nvarchar](100) NULL,
+	[WayBillNumber] [int] NULL,
+	[TotalWeight] [decimal](18, 4) NULL,
+	[TotalVolume] [decimal](18, 4) NULL,
+	[ShippedDateUtc] [datetime2](7) NULL,
+	[DeliveryDateUtc] [datetime2](7) NULL,
+	[AdminComment] [nvarchar](max) NULL,
+	[CreatedOnUtc] [datetime2](7) NOT NULL,
+	[DestinationAddress_Id] [int] NULL,
+	[OriginAddress_Id] [int] NULL,
+	[DestinationPortAddress_Id] [int] NULL,
+	[OriginPortAddress_Id] [int] NULL,
+	[Link] [nvarchar](50) NULL,
+	[Commodity] [nvarchar](500) NULL,
+	[SpecialInstructions] [nvarchar](2000) NULL,
+ CONSTRAINT [PK_Shipment] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Shipment]  WITH CHECK ADD  CONSTRAINT [FK_Shipment_DestinationAddress_Id_Address_Id] FOREIGN KEY([DestinationAddress_Id])
+REFERENCES [dbo].[Address] ([Id])
+GO
+
+ALTER TABLE [dbo].[Shipment] CHECK CONSTRAINT [FK_Shipment_DestinationAddress_Id_Address_Id]
+GO
+
+ALTER TABLE [dbo].[Shipment]  WITH CHECK ADD  CONSTRAINT [FK_Shipment_DestinationPortAddress_Id_Address_Id] FOREIGN KEY([DestinationPortAddress_Id])
+REFERENCES [dbo].[Address] ([Id])
+GO
+
+ALTER TABLE [dbo].[Shipment] CHECK CONSTRAINT [FK_Shipment_DestinationPortAddress_Id_Address_Id]
+GO
+
+ALTER TABLE [dbo].[Shipment]  WITH CHECK ADD  CONSTRAINT [FK_Shipment_OriginAddress_Id_Address_Id] FOREIGN KEY([OriginAddress_Id])
+REFERENCES [dbo].[Address] ([Id])
+GO
+
+ALTER TABLE [dbo].[Shipment] CHECK CONSTRAINT [FK_Shipment_OriginAddress_Id_Address_Id]
+GO
+
+ALTER TABLE [dbo].[Shipment]  WITH CHECK ADD  CONSTRAINT [FK_Shipment_OriginPortAddress_Id_Address_Id] FOREIGN KEY([OriginPortAddress_Id])
+REFERENCES [dbo].[Address] ([Id])
+GO
+
+ALTER TABLE [dbo].[Shipment] CHECK CONSTRAINT [FK_Shipment_OriginPortAddress_Id_Address_Id]
+GO
+
+
+
+USE [Movengo]
+GO
+
+/****** Object:  Table [dbo].[ShipmentItem]    Script Date: 1/25/2021 8:57:02 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ShipmentItem](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ShipmentId] [int] NOT NULL,
+	[DimensionsL] [float] NULL,
+	[DimensionsW] [float] NULL,
+	[DimensionsH] [float] NULL,
+	[DimensionsUnit] [nvarchar](25) NULL,
+	[Weight] [float] NULL,
+	[WeightUnit] [nvarchar](25) NULL,
+	[SHCode] [nvarchar](200) NULL,
+	[ContainerType] [nvarchar](250) NULL,
+	[PackageType] [nvarchar](250) NULL,
+	[Amount] [float] NULL,
+	[Volume] [float] NULL,
+	[VolumeUnit] [nvarchar](100) NULL,
+	[Incoterms] [nvarchar](500) NULL,
+	[Hazardous] [nvarchar](3) NULL,
+	[Refrigerated] [nvarchar](3) NULL,
+	[Temperature] [float] NULL,
+	[TemperatureUnit] [nvarchar](25) NULL,
+	CONSTRAINT [PK_ShipmentItem] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[ShipmentItem]  WITH CHECK ADD  CONSTRAINT [FK_ShipmentItem_ShipmentId_Shipment_Id] FOREIGN KEY([ShipmentId])
+REFERENCES [dbo].[Shipment] ([Id])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[ShipmentItem] CHECK CONSTRAINT [FK_ShipmentItem_ShipmentId_Shipment_Id]
+GO
+
+
