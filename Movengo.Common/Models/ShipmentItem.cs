@@ -17,6 +17,8 @@ namespace Movengo.Common.Models
         public string ContainerType { get; set; }
         [StringLength(250)]
         public string PackageType { get; set; }
+        [StringLength(500)]
+        public string Commodity { get; set; }
         public float DimensionsL { get; set; }
         public float DimensionsW { get; set; }
         public float DimensionsH { get; set; }
@@ -35,6 +37,6 @@ namespace Movengo.Common.Models
         public float Temperature { get; set; }
         [StringLength(25)]
         public string TemperatureUnit { get; set; }
-        public virtual Shipment Shipment { get; set; }
+        //public virtual Shipment Shipment { get; set; }
     }
 }

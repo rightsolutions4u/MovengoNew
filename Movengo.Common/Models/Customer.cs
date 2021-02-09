@@ -40,11 +40,10 @@ namespace Movengo.Common.Models
         public int RegisteredInStoreId { get; set; }
         public string Password { get; set; }
         public string Apitoken { get; set; }
-
         public virtual Address BillingAddress { get; set; }
         public virtual Address ShippingAddress { get; set; }
         //public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         //public virtual ICollection<CustomerCustomerRoleMapping> CustomerCustomerRoleMappings { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        //public virtual ICollection<Order> Orders { get; set; }
     }
 }

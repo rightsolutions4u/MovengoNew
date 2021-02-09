@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movengo.Common.Models;
 using Microsoft.AspNetCore.Cors;
+using System;
 
 namespace Movengo.API.Controllers
 {
@@ -76,8 +77,8 @@ namespace Movengo.API.Controllers
 
         // POST: api/Shipments
         
-        [HttpPost("PostShipment")]
-        public async Task<ActionResult<Shipment>> PostShipment(Shipment Shipment)
+        [HttpPost("PostShipment1")]
+        public async Task<ActionResult<Shipment>> PostShipment1(Shipment Shipment)
         {
             _context.Shipments.Add(Shipment);
             await _context.SaveChangesAsync();
@@ -85,6 +86,101 @@ namespace Movengo.API.Controllers
             return CreatedAtAction("GetShipment", new { id = Shipment.Id }, Shipment);
         }
 
+        [HttpPost("PostShipment")]
+        public async Task<ActionResult<Shipment>> PostShipment(ShipmentModel shipmentmodel)
+        
+        {
+            var s = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(shipmentmodel.ToString());
+            Address address_origin = new Address
+            {
+                Address1 = s.StreetAddress1,
+                Address2 = s.StreetAddress2,
+                City = s.City,
+                CreatedOnUtc = DateTime.UtcNow,
+                ZipPostalCode = s.ZipPostalCode,
+                CountryId = s.CountryId,
+            };
+            _context.Addresses.Add(address_origin);
+            await _context.SaveChangesAsync();
+            Address address_dest = new Address
+            {
+                Address1 = s.StreetAddress1_dest,
+                Address2 = s.StreetAddress2_dest,
+                City = s.City_dest,
+                CreatedOnUtc = DateTime.UtcNow,
+                ZipPostalCode = s.ZipPostalCode_dest,
+                CountryId = s.CountryId_dest,
+            };
+            _context.Addresses.Add(address_dest);
+            await _context.SaveChangesAsync();
+
+            Shipment shipment = new Shipment
+            {
+                TypeOfShipment = s.TypeOfShipment,
+                CargoShipmentType = s.CargoShipmentType,
+                OriginAddress_Id = address_origin.Id,
+                DestinationAddress_Id = address_dest.Id
+            };
+            _context.Shipments.Add(shipment);
+             await _context.SaveChangesAsync();
+            return await PostShipmentJson(shipment.Id);
+        }
+
+
+        private async Task<ActionResult<Shipment>> PostShipmentJson(int id)
+        {
+            var shipment = await _context.Shipments.FindAsync(id);
+
+            if (shipment == null)
+            {
+                return NotFound();
+            }
+
+            return shipment;
+        }
+
+        [HttpPost("InsertShipmentItems")]
+        public async Task<ActionResult<ShipmentItem>> InsertShipmentItems(List<ShipmentItem> shipmentItem)
+         //public JsonResult  InsertShipmentItems(List<ShipmentItem> shipmentItem)
+        {
+            int shipitemId = 0;
+            int i = 0;
+            //Loop and insert records.
+            foreach (ShipmentItem shipitem in shipmentItem)
+             {
+                //i = i + 1;
+                ShipmentItem shipmentitem = new ShipmentItem
+                {
+                    Id = shipitem.Id,
+                    Commodity = shipitem.Commodity,
+                    DimensionsL = shipitem.DimensionsL,
+                    DimensionsH = shipitem.DimensionsH,
+                    DimensionsW = shipitem.DimensionsW,
+                    DimensionsUnit = shipitem.DimensionsUnit,
+                    Weight = shipitem.Weight,
+                    WeightUnit = shipitem.WeightUnit
+                };
+
+                _context.ShipmentItems.Add(shipmentitem);
+                await _context.SaveChangesAsync();
+                
+                shipitemId = shipmentitem.ShipmentId;
+            }
+            //return Json(i);
+            return await PostShipmentItemJson(shipitemId);
+            }
+
+        private async Task<ActionResult<ShipmentItem>> PostShipmentItemJson(int id)
+        {
+            var shipmentitem = await _context.ShipmentItems.FindAsync(id);
+
+            if (shipmentitem == null)
+            {
+                return NotFound();
+            }
+
+            return shipmentitem;
+        }
         // DELETE: api/Shipments/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Shipment>> DeleteShipment(int id)

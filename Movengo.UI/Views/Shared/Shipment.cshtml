@@ -11,12 +11,13 @@
         text-align: center;
     }
 </style>
-funcion showme(divId)
-{
-     var a = document.getElementById('divId');
-     a.style.display = "block";
-}
-
+<script>
+    function showme(divId)
+    {
+        var a = document.getElementById(divId);
+        a.style.display = "block";
+    }
+</script>
 <section class="banner-bottom-wthreelayouts py-lg-5 py-3">
     <div class="container">
         <h3 class="tittle-w3layouts text-center my-lg-4 my-4">Shipment</h3> <br>
@@ -51,7 +52,7 @@ funcion showme(divId)
                             }
                         </Script>
                     </div>
-                    <div style="display:none" id="CargoType" class="col-md-6 con-right">
+                    <div @*style="display:none"*@ id="CargoType" class="col-md-6 con-right">
                         <label class="my-2">Type of Cargo</label>
                         <div class="form-group">
                             <input type="radio" id="Commercial" name="CargoShipmentType" value="Commercial">
@@ -84,7 +85,7 @@ funcion showme(divId)
                 <form method="post" action="@Url.Action("CreateShipmentOnline", "Home")">
                     <div class="col-md-10 border border-info">
                         <div class="border border-danger" style="width:99%;align-self:center;align-content:center;">
-                            <div id="Online" style="width:90%;align-self:center;align-content:center;">
+                            <div id="Online" style="width:90%;align-self:center;align-content:center; display:none">
                                 <div class="row contact_left_grid ">
                                     <div class="col-md-6 con-left">
                                         <div class="form-group">
@@ -107,13 +108,13 @@ funcion showme(divId)
                                                         <option value="x">Select Country</option>";
                                                     </select>
                                                     <script>
+
                                                         function populateCountry() {
                                                             $.ajax({
                                                                 url: 'https://localhost:44307/api/Addresses/GetCountries',
                                                                 type: 'GET',
                                                                 success: function (result) {
                                                                     var markup = '<option value="y">Please Select a Country</option>';
-
                                                                     for (var i = 0; i < result.length; i++) {
                                                                         markup += '<option value=' + result[i].id + '>' + result[i].name + '</option>';
 
@@ -153,27 +154,29 @@ funcion showme(divId)
                 </form>
                 <!-------Online div Ends----->
                 <!-------Cargo Non-Commercial div Starts----->
-                <form method="post" action="@Url.Action("CreateShipmentOnline", "Home")">
-                    <div class="solid" id="NonCommercial" style="display:none">
+                <form id="Shipment" method="post" >
+                    <div class="solid" id="NonCommercial" @*style="display:none"*@>
                         <div class="row contact_left_grid ">
                             <div class="col-md-6 con-left">
                                 <div class="col-md-6 con-left">
+                                    <label class="my-2" align="center">Origin Address</label>
                                     <div class="form-group">
                                         <label class="my-2">Street Address1</label>
-                                        <input class="form-control" type="text" name="StreetAddress1" id="StreetAddress1" placeholder="" required="">
+                                        <input class="form-control" type="text" name="StreetAddress1_origin" id="StreetAddress1_origin" placeholder="" required="" onchange="populateCountry_origin()">
                                     </div>
                                     <div class="form-group">
                                         <label class="my-2">Street Address2</label>
-                                        <input class="form-control" type="text" name="Street Address2" id="StreetAddress2" placeholder="" required="">
+                                        <input class="form-control" type="text" name="StreetAddress2_origin" id="StreetAddress2_origin" placeholder="" required="">
+                                        <input class="form-control" type="hidden" name="Id" id="Id" placeholder="" required="" style="width:500px;">
                                     </div>
                                     <div class="form-group">
                                         <label class="my-2">Country</label>
                                         <div class="select">
-                                            <select class="form-control" name="CountryId1" id="CountryId1">
+                                            <select class="form-control" name="CountryId_origin" id="CountryId_origin">
                                                 <option value="x">Select Country</option>";
                                             </select>
                                             <script>
-                                                function populateCountry() {
+                                                function populateCountry_origin() {
                                                     $.ajax({
                                                         url: 'https://localhost:44307/api/Addresses/GetCountries',
                                                         type: 'GET',
@@ -184,7 +187,7 @@ funcion showme(divId)
                                                                 markup += '<option value=' + result[i].id + '>' + result[i].name + '</option>';
 
                                                             }
-                                                            $("#CountryId").html(markup).show();
+                                                            $("#CountryId_origin").html(markup).show();
                                                         },
                                                         error:
                                                             function (result) {
@@ -196,31 +199,331 @@ funcion showme(divId)
                                             </script>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="my-2">City.</label>
+                                        <input class="form-control" type="text" name="City_origin" id="City_origin" placeholder="" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Zip Code</label>
+                                        <input class="form-control" type="text" name="ZipCode_origin" id="ZipCode_origin" placeholder="" required="">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6 con-right">
-                                <br>
-                                <br />
-                                <br />
+                                <label class="my-2" align="center">Destination Address</label>
+                                <div class="form-group">
+                                    <label class="my-2">Street Address1</label>
+                                    <input class="form-control" type="text" name="StreetAddress1_dest" id="StreetAddress1_dest" placeholder="" required="" onchange="populateCountry_dest()">
+                                </div>
+                                <div class="form-group">
+                                    <label class="my-2">Street Address2</label>
+                                    <input class="form-control" type="text" name="StreetAddress2_dest" id="StreetAddress2_dest" placeholder="" required="">
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="my-2">Country</label>
+                                    <div class="select">
+                                        <select class="form-control" name="CountryId_dest" id="CountryId_dest">
+                                            <option value="x">Select Country</option>";
+                                        </select>
+                                        <script>
+                                            function populateCountry_dest() {
+                                                $.ajax({
+                                                    url: 'https://localhost:44307/api/Addresses/GetCountries',
+                                                    type: 'GET',
+                                                    success: function (result) {
+                                                        var markup = '<option value="y">Please Select a Country</option>';
+
+                                                        for (var i = 0; i < result.length; i++) {
+                                                            markup += '<option value=' + result[i].id + '>' + result[i].name + '</option>';
+
+                                                        }
+                                                        $("#CountryId_dest").html(markup).show();
+                                                    },
+                                                    error:
+                                                        function (result) {
+
+                                                            alert("error : " + result.responseText);
+                                                        }
+                                                });
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="my-2">City.</label>
-                                    <input class="form-control" type="text" name="city" id="city" placeholder="" required="">
+                                    <input class="form-control" type="text" name="City_dest" id="City_dest" placeholder="" required="">
                                 </div>
                                 <div class="form-group">
                                     <label>Zip Code</label>
-                                    <input class="form-control" type="text" name="ZipCode" id="ZipCode" placeholder="" required="">
+                                    <input class="form-control" type="text" name="ZipCode_dest" id="ZipCode_dest" placeholder="" required="">
+                                    <input class="form-control" type="hidden" name="OriginAddress_Id" id="OriginAddress_Id" placeholder="" required="" style="width:500px;">
+                                    <input class="form-control" type="hidden" name="DestinationAddress_Id" id="DestinationAddress_Id" placeholder="" required="" style="width:500px;">
+                                    
                                 </div>
-                                <input class="form-control" type="submit" value="Submit">
+                                <button type="button" class="btn btn-primary submit mb-4" onclick="a()" >Save</button>
+                                @*<input class="form-control" type="button" value="Submit" onclick="shipmentPost()">*@
                             </div>
-                        </div>
-                        <div class="solid" id="item">
+                            <script>
+                                function a()
+                                {
 
+                                    var streetaddress1 = $('#StreetAddress1_origin').val();
+                                    var streetaddress2 = $('#Streetaddress2_origin').val();
+                                    var countryid = $('#Countryid_origin').val();
+                                    var city = $('#City_origin').val();
+                                    var zipcode = $('#Zipcode_origin').val();
+
+                                    var streetaddress1_dest = $('#Streetaddress1_dest').val();
+                                    var streetaddress2_dest = $('#Streetaddress2_dest').val();
+                                    var countryid_dest = $('#Countryid_dest').val();
+                                    var city_dest = $('#City_dest').val();
+                                    var zipcode_dest = $('#Zipcode_dest').val();
+
+                                    var shipmentaddressOrigin = {
+                                        streetaddress1: streetaddress1,
+                                        StreetAddress2: streetaddress2,
+                                        CountryId: countryid,
+                                        ZipPostalCode: zipcode,
+                                        City: city
+                                    };
+                                    
+                                    var shipmentaddressDest = {
+                                        streetaddress1: streetaddress1_dest,
+                                        StreetAddress2: streetaddress2_dest,
+                                        countryid: countryid_dest,
+                                        ZipPostalCode: zipcode_dest,
+                                        City: city_dest
+                                    };
+                                    
+                                   var ShipmentModel = {
+                                        "Address_origin": shipmentaddressOrigin,
+                                        "Address_dest": shipmentaddressDest,
+                                      //  "Shipment": shipment
+                                    };
+                                    alert("before call to origin address");
+                                    
+                                    $.ajax({
+                                        url: 'https://localhost:44307/api/Addresses/PostAddress',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        contentType: 'application/json; charset=utf-8',
+                                        data: JSON.stringify(shipmentaddressOrigin)
+                                        , success: function (result) {
+                                            alert("shipment Origin address has been added successfully");
+                                            $('#OriginAddress_Id').val(result.id);
+                                            alert("originaddrId " + $('#OriginAddress_Id').val());
+                                               
+                                                $.ajax({
+                                                    url: 'https://localhost:44307/api/Addresses/PostAddress',
+                                                    type: 'POST',
+                                                    dataType: 'json',
+                                                    contentType: 'application/json; charset=utf-8',
+                                                    data: JSON.stringify(shipmentaddressDest)
+                                                    , success: function (result) {
+                                                        alert("shipment Destination address has been added successfully");
+                                                        $('#DestinationAddress_Id').val(result.id);
+                                                        alert("destaddrid " + $('#DestinationAddress_Id').val());
+                                                        b();
+                                                    }
+                                                    , error: function (result) {
+                                                        alert("err in destaddr " + result.responsetext);
+                                                    }
+                                                });
+                                         }
+                                        , error: function (result) {
+                                            alert("err in origin addr " + result.responsetext);
+                                        }
+                                    });
+                                   
+                                }
+                            </script>
+                        <script>
+                            function b() {
+                                var typeofshipment = $('#TypeOfShipment').val;
+                                var cargoshipmenttype = $('#CargoShipmentType').val;
+                                var destaddr = $('#DestinationAddress_Id').val();
+                                var origaddr = $('#OriginAddress_Id').val();
+                                alert("before shipment " + typeofshipment + ' ' + cargoshipmenttype + ' ' + destaddr + ' ' + origaddr);
+                                var Shipment = {
+                                    TypeOfShipment: typeofshipment,
+                                    CargoShipmentType: cargoshipmenttype,
+                                    OriginAddress_Id: origaddr,
+                                    DestinationAddress_Id: destaddr
+                                };
+                                $.ajax({
+                                    url: 'https://localhost:44307/api/Shipments/PostShipment1',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: JSON.stringify(Shipment)
+                                    , success: function (result) {
+                                        alert("shipment  has been added successfully");
+                                        
+                                    }
+                                    , error: function (result) {
+                                        alert("err in shipment" + result.responsetext);
+                                    }
+                                });
+                            }
+                        </script>
                         </div>
-                        <!-------Cargo Cargo Non-Commercial div Ends----->
+                       <!-------Cargo Cargo Non-Commercial div Ends----->
                     </div>
                 </form>
-</div>
-        </div>
+                 <!---------Shipment Items-->
+                <!--<form id="ItemsNonCommercial" >
+                  <table id="ItemsNonCommercial" class="table" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width:50px">Commodity</th>
+                                <th style="width:50px">DimensionsL</th>
+                                <th style="width:50px">DimensionsW</th>
+                                <th style="width:50px">DimensionsH</th>
+                                <th style="width:50px">DimensionsUnit</th>
+                                <th style="width:50px">Weight</th>
+                                <th style="width:50px">WeightUnit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" id="txtCommodity" /></td>
+                                <td><input type="text" id="txtDimensionsL" /></td>
+                                <td><input type="text" id="txtDimensionsW" /></td>
+                                <td><input type="text" id="txtDimensionsH" /></td>
+                                <td><input type="text" id="txtDimensionsUnit" /></td>
+                                <td><input type="text" id="txtWeight" /></td>
+                                <td><input type="text" id="txtWeightUnit" /></td>
+                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+                                <td><input type="button" id="btnAdd" value="Add" /></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>-->
+                                @*<td><input type="text" id="txtCommodity" /></td>
+                                <td><input type="text" id="txtDimensionsL" /></td>
+                                <td><input type="text" id="txtDimensionsW" /></td>
+                                <td><input type="text" id="txtDimensionsH" /></td>
+                                <td><input type="text" id="txtDimensionsUnit" /></td>
+                                <td><input type="text" id="txtWeight" /></td>
+                                <td><input type="text" id="txtWeightUnit" /></td>
+                                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+                                <td><input type="button" id="btnAdd" value="Add" /></td>*@
+                            <!--</tr>  
+                        </tfoot>
+                    </table>
+                    <br />
+                    <input type="button" id="btnSave" value="Save All" />
+                    <script>
+                        $("body").on("click", "#btnAdd", function () {
+                            //Reference the TextBoxes.
+                            var txtCommodity = $("#txtCommodity");
+                            var txtDimensionsL = $("#txtDimensionsL");
+                            var txtDimensionsW = $("#txtDimensionsW");
+                            var txtDimensionsH = $("#txtDimensionsH");
+                            var txtDimensionsUnit = $("#txtDimensionsUnit");
+                            var txtWeight = $("#txtWeight");
+                            var txtWeightUnit = $("#txtWeightUnit");
+                            
+
+                            //Get the reference of the Table's TBODY element.
+                            var tBody = $("#ItemsNonCommercial > TBODY")[0];
+
+                            //Add Row.
+                            var row = tBody.insertRow(-1);
+
+                            //Add Commodity cell.
+                            var cell = $(row.insertCell(-1));
+                            cell.html(txtCommodity.val());
+
+                            //Add DimensionsL cell.
+                            cell = $(row.insertCell(-1));
+                            cell.html(txtDimensionsL.val());
+                            //Add DimensionsW cell.
+                            cell = $(row.insertCell(-1));
+                            cell.html(txtDimensionsW.val());
+                            //Add DimensionsH cell.
+                            cell = $(row.insertCell(-1));
+                            cell.html(txtDimensionsH.val());
+                            //Add DimensionsUnit cell.
+                            cell = $(row.insertCell(-1));
+                            cell.html(txtDimensionsUnit.val());
+                            //Add Weight cell.
+                            cell = $(row.insertCell(-1));
+                            cell.html(txtWeight.val());
+                            //Add WeightUnit cell.
+                            cell = $(row.insertCell(-1));
+                            cell.html(txtWeightUnit.val());
+
+                            //Add Button cell.
+                            cell = $(row.insertCell(-1));
+                            var btnRemove = $("<input />");
+                            btnRemove.attr("type", "button");
+                            btnRemove.attr("onclick", "Remove(this);");
+                            btnRemove.val("Remove");
+                            cell.append(btnRemove);
+
+                            //Clear the TextBoxes.
+                            txtCommodity.val("");
+                            txtDimensionsL.val("");
+                            txtDimensionsW.val("");
+                            txtDimensionsHL.val("");
+                            txtDimensionsUnit.val("");
+                            txtWeight.val("");
+                            txtWeightUnit.val("");
+                        });
+
+                        function Remove(button) {
+                            //Determine the reference of the Row using the Button.
+                            var row = $(button).closest("TR");
+                            var name = $("TD", row).eq(0).html();
+                            if (confirm("Do you want to delete: " + name)) {
+                                //Get the reference of the Table.
+                                var table = $("#ItemsNonCommercial")[0];
+
+                                //Delete the Table row using it's Index.
+                                table.deleteRow(row[0].rowIndex);
+                            }
+                        };
+                        $("body").on("click", "#btnSave", function () {
+                            alert("in save");
+                            //Loop through the Table rows and build a JSON array.
+                            var NonCommercial = new Array();
+                            $("#ItemsNonCommercial TBODY TR").each(function () {
+                                var row = $(this);
+                                var NonCommercial = {};
+                                NonCommercial.Commodity = row.find("TD").eq(0).html(),
+                                    NonCommercial.DimensionL = row.find("TD").eq(1).html(),
+                                    NonCommercial.DimensionW = row.find("TD").eq(2).html(),
+                                    NonCommercial.DimensionH = row.find("TD").eq(3).html(),
+                                    NonCommercial.DimensionUnit = row.find("TD").eq(4).html(),
+                                    NonCommercial.Weight = row.find("TD").eq(5).html(),
+                                    NonCommercial.WeightUnit = row.find("TD").eq(6).html(),
+                                    NonCommercial.Id= = $("#Id");
+                                    NonCommercial.push(NonCommercial);
+
+                            });
+                            alert("record: " + NonCommercial);
+                            //Send the JSON array to Controller using AJAX.
+                            $.ajax({
+                                type: "POST",
+                                url: "https://localhost:44307/api/Shipments/InsertShipmentItems",
+                                data: JSON.stringify(NonCommercial),
+                                contentType: "application/json; charset=utf-8",
+                                success: function (result) {
+                                    alert("record(s) inserted successfully.");
+                                },
+                                error:
+                                    function (result) {
+
+                                        alert("error : " + result.responseText);
+                                    }
+                            });
+                        }
+                    </script>
+                </form>-->
+    </div>
+   </div>
     </div>
 </section>
 @*<div class="select">

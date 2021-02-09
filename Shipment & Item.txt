@@ -84,6 +84,7 @@ GO
 CREATE TABLE [dbo].[ShipmentItem](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ShipmentId] [int] NOT NULL,
+	[Commodity] [nvarchar](500) NULL,
 	[DimensionsL] [float] NULL,
 	[DimensionsW] [float] NULL,
 	[DimensionsH] [float] NULL,

@@ -9,8 +9,8 @@ namespace Movengo.Common.Models
     {
         public Country()
         {
-            Addresses = new HashSet<Address>();
-            StateProvinces = new HashSet<StateProvince>();
+            //Addresses = new HashSet<Address>();
+            //StateProvinces = new HashSet<StateProvince>();
         }
 
         public int Id { get; set; }
@@ -25,7 +25,7 @@ namespace Movengo.Common.Models
         public int DisplayOrder { get; set; }
         public bool LimitedToStores { get; set; }
 
-        public virtual ICollection<Address> Addresses { get; set; }
-        public virtual ICollection<StateProvince> StateProvinces { get; set; }
+        //public virtual ICollection<Address> Addresses { get; set; }
+        //public virtual ICollection<StateProvince> StateProvinces { get; set; }
     }
 }

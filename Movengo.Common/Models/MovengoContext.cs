@@ -58,10 +58,10 @@ namespace Movengo.Common.Models
             {
                 entity.ToTable("Address");
 
-                entity.HasOne(d => d.Country)
-                    .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.CountryId)
-                    .HasConstraintName("FK_Address_CountryId_Country_Id");
+                //entity.HasOne(d => d.Country)
+                //    .WithMany(p => p.Addresses)
+                //    .HasForeignKey(d => d.CountryId)
+                //    .HasConstraintName("FK_Address_CountryId_Country_Id");
 
                 entity.HasOne(d => d.StateProvince)
                     .WithMany(p => p.Addresses)
@@ -249,11 +249,11 @@ namespace Movengo.Common.Models
                 //    .OnDelete(DeleteBehavior.ClientSetNull)
                 //    .HasConstraintName("FK_Order_BillingAddressId_Address_Id");
 
-                entity.HasOne(d => d.Customer)
-                        .WithMany(p => p.Orders)
-                        .HasForeignKey(d => d.CustomerId)
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Order_CustomerId_Customer_Id");
+                //entity.HasOne(d => d.Customer)
+                //        .WithMany(p => p.Orders)
+                //        .HasForeignKey(d => d.CustomerId)
+                //        .OnDelete(DeleteBehavior.ClientSetNull)
+                //        .HasConstraintName("FK_Order_CustomerId_Customer_Id");
 
                 //entity.HasOne(d => d.PickupAddress)
                 //    .WithMany(p => p.OrderPickupAddresses)
@@ -390,20 +390,17 @@ namespace Movengo.Common.Models
 
                     entity.Property(e => e.TotalWeight).HasColumnType("decimal(18, 4)");
 
-                    entity.HasOne(d => d.Order)
-                        .WithMany(p => p.Shipments)
-                        .HasForeignKey(d => d.OrderId)
-                        .HasConstraintName("FK_Shipment_OrderId_Order_Id");
+                    
                 });
 
                 modelBuilder.Entity<ShipmentItem>(entity =>
                 {
                     entity.ToTable("ShipmentItem");
 
-                    entity.HasOne(d => d.Shipment)
-                        .WithMany(p => p.ShipmentItems)
-                        .HasForeignKey(d => d.ShipmentId)
-                        .HasConstraintName("FK_ShipmentItem_ShipmentId_Shipment_Id");
+                    //entity.HasOne(d => d.Shipment)
+                    //    .WithMany(p => p.ShipmentItems)
+                    //    .HasForeignKey(d => d.ShipmentId)
+                    //    .HasConstraintName("FK_ShipmentItem_ShipmentId_Shipment_Id");
                 });
 
                 modelBuilder.Entity<StateProvince>(entity =>
@@ -416,10 +413,10 @@ namespace Movengo.Common.Models
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    entity.HasOne(d => d.Country)
-                        .WithMany(p => p.StateProvinces)
-                        .HasForeignKey(d => d.CountryId)
-                        .HasConstraintName("FK_StateProvince_CountryId_Country_Id");
+                    //entity.HasOne(d => d.Country)
+                    //    .WithMany(p => p.StateProvinces)
+                    //    .HasForeignKey(d => d.CountryId)
+                    //    .HasConstraintName("FK_StateProvince_CountryId_Country_Id");
                 });
 
                 modelBuilder.Entity<TaxCategory>(entity =>
